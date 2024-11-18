@@ -2,6 +2,9 @@ import { $ } from '@wdio/globals'
 import Page from './page.js';
 import LoginPage from '../pageobjects/login.page.js'
 import SecurePage from '../pageobjects/secure.page.js'
+import hamburgerMenu from '../pageobjects/hamburgermenu.js'
+import ShippingInfo from './ShippingInfo.js';
+/** import ShippingInfo from './ShippingInfo.js'; */
 
 class MyCart extends Page {
     get cartBtn () {
@@ -20,11 +23,6 @@ class MyCart extends Page {
         return $('button[data-test="add-to-cart-sauce-labs-backpack"]');
     }
 
-    
-    /** get cartBtn () {
-        return $('a[class="shopping_cart_link"]');
-    } */
-
     get RemoveFrmCrt () {
         return $('button[data-test="remove-sauce-labs-backpack"]')
     }
@@ -33,15 +31,11 @@ class MyCart extends Page {
         return $('button[id="continue-shopping"]')
     }
 
-    /** get addtoCart () {
-        return $('button[data-test="add-to-cart-sauce-labs-backpack"]');
-    } 
-    
-    get cartBtn () {
-        return $('a[class="shopping_cart_link"]');
-    } */
+    get removebtn () {
+        return $('button[data-test="remove-sauce-labs-backpack"]')
+    }
 
-    get ChckOut () {
+    get CheckOut () {
         return $('button[data-test="checkout"]')
     }
 
@@ -56,36 +50,52 @@ class MyCart extends Page {
     get Zip () {
         return $('intup[data-test="postalCode"]')
     }
+
+    get Continuebtn () {
+        return $('input[type="submit"]')
+    }
     
+    get finishBtn () {
+        return $('button[data-test="finish"]')
+    }
     
-    async shipngInfo (Firstname, Lastname, Zip) {
-        await this.inputFirstname.setValue(Firstname);
-        await this.inputLastname.setValue(Lastname);
-        await this.inputZip.setValue(Zip);
-        await this.btnContinue.click();
+    get backHome() {
+        return $('button[data-test="back-to-products"]')
     }
 
-    async Menu () {
-        await this.hamburgerMenu.click();
-        await this.closeButton.click();
+    get closeButton () {
+        return $('button[id="react-burger-cross-btn"]')
+    }
+
+    async CartTest () {
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'secret_sauce')
+        await expect(SecurePage.productPage).toBeExisting()
+        await expect(SecurePage.productPage).toHaveText(
+            expect.stringContaining('Swag Labs'))
         await this.hamburgerMenu.click();
         await this.allItems.click();
-        await this.about.click();
-        await browser.back();
-        await this.hamburgerMenu.click();
-        await this.logOut.click();
-        
+        await this.closeButton.click();
+        await this.addtoCart.click();
+        await this.cartBtn.click();
+        await this.RemoveFrmCrt.click();
+        await this.ContShopping.click();
+        await this.addtoCart.click();
+        await this.removebtn.click();
+        await this.addtoCart.click();
+        await this.cartBtn.click();
+        await this.CheckOut.click();
+        await ShippingInfo.open();
+        await this.ShippingInfo.info('Scott', 'Scottson', '42096')
+        await expect(SecurePage.shippingPge).toBeExisting() 
+        await this.btnContinue.click();
+        await this.finishBtn.click();
+        await this.backHome.click();
     }
 
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
-    }
-    
     open () {
         return super.open();
     }
 }
 
-export default new hamburgerMenu();
+export default new MyCart();

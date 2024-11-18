@@ -37,7 +37,6 @@ class hamburgerMenu extends Page {
         await browser.back();
         await this.hamburgerMenu.click();
         await this.logOut.click();
-        
     }
 
     async login (username, password) {

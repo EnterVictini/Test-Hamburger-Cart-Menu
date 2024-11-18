@@ -15,6 +15,9 @@ class SecurePage extends Page {
     get errorpupup () {
         return $('button[class="error-button"]');
     }
+    get shippingPge () {
+        return $('div[class="checkout_info"]')
+    }
 
 }
 
