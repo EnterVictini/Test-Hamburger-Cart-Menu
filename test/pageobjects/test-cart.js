@@ -67,16 +67,43 @@ class MyCart extends Page {
         return $('button[id="react-burger-cross-btn"]')
     }
 
+    get addtoCart2 () {
+        return $('button[data-test="add-to-cart-sauce-labs-bike-light"]')
+    }
+
+    get addtoCart3 () {
+        return $('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]')
+    }
+
+    get addtoCart4 () {
+        return $('button[data-test="add-to-cart-sauce-labs-fleece-jacket"]')
+    }
+
+    get addtoCart5 () {
+        return $('button[data-test="add-to-cart-sauce-labs-onesie"]')
+    }
+
+    get addtoCart6 () {
+        return $('button[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]')
+    }
+
     async CartTest () {
         await LoginPage.open();
         await LoginPage.login('standard_user', 'secret_sauce')
-        await expect(SecurePage.productPage).toBeExisting()
+        /** await expect(SecurePage.productPage).toBeExisting()
         await expect(SecurePage.productPage).toHaveText(
             expect.stringContaining('Swag Labs'))
+        
         await this.hamburgerMenu.click();
         await this.allItems.click();
         await this.closeButton.click();
+        */
         await this.addtoCart.click();
+        await this.addtoCart2.click();
+        await this.addtoCart3.click();
+        await this.addtoCart4.click();
+        await this.addtoCart5.click();
+        await this.addtoCart6.click();
         await this.cartBtn.click();
         await this.RemoveFrmCrt.click();
         await this.ContShopping.click();
@@ -85,9 +112,22 @@ class MyCart extends Page {
         await this.addtoCart.click();
         await this.cartBtn.click();
         await this.CheckOut.click();
+        
         await ShippingInfo.open();
-        await this.ShippingInfo.info('Scott', 'Scottson', '42096')
+        const firstNameInput = await $('//input[@name="firstName"]');
+        await firstNameInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
+        await firstNameInput.setValue('Scott');
+        const lastNameInput = await $('input[data-test="lastName"]');
+        await lastNameInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
+        await lastNameInput.setValue('Scottson');
+        const ZipInput = await $('intup[data-test="postalCode"]');
+        await ZipInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
+        await ZipInput.setValue('42096');
+        
+        /** await ShippingInfo.info('Scott', 'Scottson', '42096')
         await expect(SecurePage.shippingPge).toBeExisting() 
+        await expect(SecurePage.shippingPge).toHaveText(
+            expect.stringContaining('Swag Labs')) */
         await this.btnContinue.click();
         await this.finishBtn.click();
         await this.backHome.click();

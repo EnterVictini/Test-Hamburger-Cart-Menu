@@ -3,11 +3,11 @@ import Page from './page.js';
 
 
 class ShippingInfo extends Page {
-    get Firstname () {
-        return $('input[data-test="firstName"]')
+    get firstName () {
+        return $('[name="firstName"]')
     }
 
-    get Lastname () {
+    get lastName () {
         return $('input[data-test="lastName"]')
     }
 
@@ -22,12 +22,11 @@ class ShippingInfo extends Page {
    
 
 
-    async info (Firstname, Lastname, Zip) {
-        await this.Firstname.setValue(Firstname);
-        await this.Lastname.setValue(Lastname);
+    async info (firstName, lastName, Zip) {
+        await this.firstName.setValue(firstName);
+        await this.lastName.setValue(lastName);
         await this.Zip.setValue(Zip);
         await this.Continuebtn.click();
-        
     }
 
     open () {
