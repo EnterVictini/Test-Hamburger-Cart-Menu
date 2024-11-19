@@ -3,8 +3,6 @@ import Page from './page.js';
 import LoginPage from '../pageobjects/login.page.js'
 import SecurePage from '../pageobjects/secure.page.js'
 import hamburgerMenu from '../pageobjects/hamburgermenu.js'
-import ShippingInfo from './ShippingInfo.js';
-/** import ShippingInfo from './ShippingInfo.js'; */
 
 class MyCart extends Page {
     get cartBtn () {
@@ -23,15 +21,11 @@ class MyCart extends Page {
         return $('button[data-test="add-to-cart-sauce-labs-backpack"]');
     }
 
-    get RemoveFrmCrt () {
-        return $('button[data-test="remove-sauce-labs-backpack"]')
-    }
-
     get ContShopping () {
         return $('button[id="continue-shopping"]')
     }
 
-    get removebtn () {
+    get removeBackpack () {
         return $('button[data-test="remove-sauce-labs-backpack"]')
     }
 
@@ -87,50 +81,43 @@ class MyCart extends Page {
         return $('button[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]')
     }
 
+    get removeBikeLight () {
+        return $('button[data-test="remove-sauce-labs-bike-light"]')
+    }
+
+    get removeTshirt () {
+        return $('button[data-test="remove-sauce-labs-bolt-t-shirt"]')
+    }
+
+    get removeFleeceJacket () {
+        return $('button[data-test="remove-sauce-labs-fleece-jacket"]')
+    }
+
+    get removeOnsie () {
+        return $('button[data-test="remove-sauce-labs-onesie"]')
+    }
+
+    get removeTshirtRed () {
+        return $('button[data-test="remove-test.allthethings()-t-shirt-(red)"]')
+    }
+
     async CartTest () {
-        await LoginPage.open();
-        await LoginPage.login('standard_user', 'secret_sauce')
-        /** await expect(SecurePage.productPage).toBeExisting()
-        await expect(SecurePage.productPage).toHaveText(
-            expect.stringContaining('Swag Labs'))
-        
-        await this.hamburgerMenu.click();
-        await this.allItems.click();
-        await this.closeButton.click();
-        */
         await this.addtoCart.click();
         await this.addtoCart2.click();
         await this.addtoCart3.click();
         await this.addtoCart4.click();
         await this.addtoCart5.click();
         await this.addtoCart6.click();
+        const element = await $('span[data-test="shopping-cart-badge"]');
+        expect(await element.getText()).toBe('6');
         await this.cartBtn.click();
-        await this.RemoveFrmCrt.click();
+        await this.removeBackpack.click();
+        await this.removeBikeLight.click();
+        await this.removeTshirt.click();
+        await this.removeFleeceJacket.click();
+        await this.removeOnsie.click();
+        await this.removeTshirtRed.click();
         await this.ContShopping.click();
-        await this.addtoCart.click();
-        await this.removebtn.click();
-        await this.addtoCart.click();
-        await this.cartBtn.click();
-        await this.CheckOut.click();
-        
-        await ShippingInfo.open();
-        const firstNameInput = await $('//input[@name="firstName"]');
-        await firstNameInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
-        await firstNameInput.setValue('Scott');
-        const lastNameInput = await $('input[data-test="lastName"]');
-        await lastNameInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
-        await lastNameInput.setValue('Scottson');
-        const ZipInput = await $('intup[data-test="postalCode"]');
-        await ZipInput.waitForExist({ timeout: 5000 }); // Wait up to 5 seconds
-        await ZipInput.setValue('42096');
-        
-        /** await ShippingInfo.info('Scott', 'Scottson', '42096')
-        await expect(SecurePage.shippingPge).toBeExisting() 
-        await expect(SecurePage.shippingPge).toHaveText(
-            expect.stringContaining('Swag Labs')) */
-        await this.btnContinue.click();
-        await this.finishBtn.click();
-        await this.backHome.click();
     }
 
     open () {

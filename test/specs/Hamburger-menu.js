@@ -6,6 +6,12 @@ import hamburgerMenu from '../pageobjects/hamburgermenu.js'
 
 describe('Hamburger Menu ', () => {
     it('all buttons should work', async () => {
+        
+        let count = 0;
+        const maxRuns = 3; 
+
+        while (count < maxRuns) {
+        console.log(`Running iteration ${count + 1}`);
         await LoginPage.open()
 
         await LoginPage.login('standard_user', 'secret_sauce')
@@ -21,7 +27,7 @@ describe('Hamburger Menu ', () => {
         await expect(SecurePage.productPage).toBeExisting()
         await expect(SecurePage.productPage).toHaveText(
             expect.stringContaining('Swag Labs'))
-            
-    
+        count++; 
+        }
     })
 })
