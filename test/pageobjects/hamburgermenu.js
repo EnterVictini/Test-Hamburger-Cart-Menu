@@ -29,6 +29,15 @@ class hamburgerMenu extends Page {
     }
     
     async Menu () {
+        let count = 0;
+        const maxRuns = 10; 
+
+        while (count < maxRuns) {
+        console.log(`Running iteration ${count + 1}`);
+        await this.hamburgerMenu.click();
+        await this.closeButton.click();
+        count++; 
+        }
         await this.hamburgerMenu.click();
         await this.closeButton.click();
         await this.hamburgerMenu.click();
